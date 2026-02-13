@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background: radial-gradient(circle at top,#2b0a1a,#000);
+font-family:'Poppins',sans-serif;
+color:white;
+}
+
+/* Luxury Glass Card */
+.container{
+width:95%;
+max-width:420px;
+height:90vh;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(20px);
+border-radius:30px;
+padding:25px;
+text-align:center;
+box-shadow:0 0 40px rgba(255,0,128,0.4);
+position:relative;
+overflow:hidden;
+}
+ /* QUIZ No Button Runs Away */
+const quizNoBtn = document.getElementById("quizNoBtn");
+
+quizNoBtn.addEventListener("mouseover", () => {
+quizNoBtn.style.top = Math.random() * 70 + "%";
+quizNoBtn.style.left = Math.random() * 70 + "%";
+});
+
+/* Golden title */
+h1,h2{
+font-family:'Playfair Display',serif;
+background: linear-gradient(45deg,#ffd700,#ff4da6);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+button{
+padding:12px 25px;
+border:none;
+border-radius:30px;
+margin:10px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+.yes{
+background:linear-gradient(45deg,#ff4da6,#ff0066);
+color:white;
+box-shadow:0 0 15px #ff4da6;
+}
+
+.no{
+background:white;
+color:#ff0066;
+position:absolute;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+.hidden{
+display:none;
+}
+
+/* Floating hearts */
+.heart{
+position:absolute;
+bottom:-20px;
+font-size:20px;
+animation:float 6s linear infinite;
+opacity:0.6;
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+100%{transform:translateY(-100vh);}
+}
+
+/* Male Character Animation */
+.male{
+font-size:80px;
+animation:slideIn 2s ease forwards;
+opacity:0;
+}
+
+@keyframes slideIn{
+0%{transform:translateY(100px); opacity:0;}
+100%{transform:translateY(0); opacity:1;}
+}
+
+/* Fireworks */
+.firework{
+position:absolute;
+width:6px;
+height:6px;
+border-radius:50%;
+background:gold;
+animation:explode 1s ease-out forwards;
+}
+
+@keyframes explode{
+0%{opacity:1;}
+100%{transform:translate(var(--x),var(--y));opacity:0;}
+}
+
+.quiz-input{
+padding:10px;
+border-radius:20px;
+border:none;
+width:80%;
+margin-top:10px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- PAGE 1 -->
+<div id="page1">
+<div class="male">🤵💐</div>
+<h1>Happy Valentine’s Day</h1>
+<p>My bujji pelham 💖</p>
+<button class="yes" onclick="nextPage(2)">Enter My Heart</button>
+</div>
+
+<!-- PAGE 2 QUIZ -->
+<div id="page2" class="hidden">
+<h2>Love Quiz 💘</h2>
+<p id="question"></p>
+
+<br>
+
+<button class="yes" onclick="checkAnswer()">Yes 💖</button>
+<button class="no" id="quizNoBtn">No 😜</button>
+
+</div>
+
+<!-- PAGE 3 LETTER -->
+<div id="page3" class="hidden">
+<h2>My Love Letter 💌</h2>
+<p style="margin-top:15px;">
+From the moment you came into my life,  
+everything became brighter.  
+Your smile is my peace.  
+Your voice is my favorite sound.  
+I choose you today and forever. 💖
+and love u bujji kanna
+</p>
+<button class="yes" onclick="nextPage(4)">Final Question</button>
+</div>
+
+<!-- PAGE 4 FINAL -->
+<div id="page4" class="hidden">
+<h2>Will You Be Mine Forever? 💍</h2>
+<button class="yes" onclick="startFireworks()">Yes 💖</button>
+<button class="no" id="noBtn">No 😜</button>
+</div>
+
+</div>
+
+<!-- Background Music -->
+<audio id="music" autoplay loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* QUIZ */
+let currentQuestion=0;
+const questions=[
+"will u accept me as a husband?",
+"will u be with me?",
+"can we have 2 babys?",
+"will u marry me?",
+"can we meet todays?"
+];
+
+function nextPage(page){
+for(let i=1;i<=4;i++){
+document.getElementById("page"+i).classList.add("hidden");
+}
+document.getElementById("page"+page).classList.remove("hidden");
+
+if(page===2){
+showQuestion();
+}
+}
+
+function showQuestion(){
+document.getElementById("question").innerText=questions[currentQuestion];
+}
+
+function checkAnswer(){
+currentQuestion++;
+if(currentQuestion<questions.length){
+showQuestion();
+document.getElementById("answer").value="";
+}else{
+nextPage(3);
+}
+}
+
+/* Floating hearts */
+function createHeart(){
+const heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerText="💖";
+heart.style.left=Math.random()*100+"%";
+heart.style.fontSize=Math.random()*20+15+"px";
+heart.style.animationDuration=Math.random()*3+3+"s";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,500);
+
+/* No Button Runs Away */
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",()=>{
+noBtn.style.top=Math.random()*80+"%";
+noBtn.style.left=Math.random()*80+"%";
+});
+
+/* Fireworks */
+function startFireworks(){
+alert("You just made me the happiest person alive 💖");
+
+for(let i=0;i<60;i++){
+let fire=document.createElement("div");
+fire.classList.add("firework");
+
+let x=(Math.random()-0.5)*500+"px";
+let y=(Math.random()-0.5)*500+"px";
+
+fire.style.setProperty('--x',x);
+fire.style.setProperty('--y',y);
+fire.style.left="50%";
+fire.style.top="50%";
+
+document.body.appendChild(fire);
+
+setTimeout(()=>fire.remove(),1000);
+}
+}
+
+</script>
+
+</body>
+</html>
